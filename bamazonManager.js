@@ -40,8 +40,8 @@ function begin(){
 			showAllInventory();
 			
 		}if(answer.menu === "add new product"){
-			//function here
-			console.log("lets add new product!");
+			addNew();
+
 		}if(answer.menu === "log out"){
 			process.exit();
 		}
@@ -147,6 +147,7 @@ function returnMenu(){
 			if (answer.return === true) {
 				begin();
 			} else{
+				console.log("Ok, Bye!");
 				process.exit();
 			}
 		});
@@ -154,15 +155,64 @@ function returnMenu(){
 
 
 function addNew() {
-	// body...
+		inquirer.prompt([
+		{	
+			name: "name",
+			type:"input",
+			message: "What is the Product Name?"
+		},
+
+		{	
+			name: "department",
+			type:"input",
+			message: "What Department is the Product in?"
+		},
+
+		{	
+			name: "price",
+			type:"input",
+			message: "What is Product Price?",
+			validate: function(value){
+      		if (isNaN(value) === false){
+        	return true;
+      		}
+      		return false;
+    	}
+
+		},
+
+		{	
+			name: "stock",
+			type:"input",
+			message: "How many are you adding? ",
+			validate: function(value){
+      		if (isNaN(value) === false){
+        	return true;
+      		}
+      		return false;
+    	}
+		}
+
+		]).then(function(answers){
+			var newName = answers.name;
+			var newDepartment = answers.department;
+			var newPrice = answers.price;
+			var newStock = answers.stock;
+			
+
+			connection.query("INSERT INTO products SET ?",{product_name: newName, department_name: newDepartment, price: newPrice, stock_quantity: newStock},
+				function(err, res){
+					if (err) throw err;
+					console.log(newName + " added to " + newDepartment + " for $" + newPrice + " and " + newStock + " in stock");
+					returnMenu();
+				});
+			
+	});
 }
 
 
-begin();
-// View Low Inventory
-// Add to Inventory
-// Add New Product
-// If a manager selects View Products for Sale, the app should list every available item: the item IDs, names, prices, and quantities.
-// If a manager selects View Low Inventory, then it should list all items with a inventory count lower than five.
-// If a manager selects Add to Inventory, your app should display a prompt that will let the manager "add more" of any item currently in the store.
-// If a manager selects Add New Product, it should allow the manager to add a completely new product to the store.
+ begin();
+
+
+
+

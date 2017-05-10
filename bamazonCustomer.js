@@ -29,6 +29,7 @@ function begin(){
 			showAll();
 		}else{
 			console.log("Ok, bye!");
+			process.exit();
 		}
 	});
 }
@@ -79,8 +80,9 @@ function showAll(){
     					}
 					}).then(function(input){
 
-						if (input.amount >= res[0].stock_quantity) {
+						if (input.amount > res[0].stock_quantity) {
 						console.log("insufficient quantity!");
+						returnMenu();
 						}else{
 						var newstock =	res[0].stock_quantity - input.amount;
 						var totalCost = res[0].price*input.amount;
@@ -89,6 +91,7 @@ function showAll(){
 							function(err, res){
 								if (err) throw err;
 							console.log("Your total cost is $" + totalCost + ", THANKS FOR SHOPPING BAMAZON!");
+							returnMenu();
 							});
 						}
 					});
@@ -98,7 +101,21 @@ function showAll(){
 	}
 
 
-	
+	function returnMenu(){
+	inquirer.prompt([
+		{	
+			name: "return",
+			type:"confirm",
+			message: "Return to Main Menu?"
+		}
+		]).then(function(answer){
+			if (answer.return === true) {
+				begin();
+			} else{
+				process.exit();
+			}
+		});
+}
 
 
 
