@@ -57,7 +57,7 @@ function showAll(){
 		if(err) throw err;  
 		console.log("\n Items for Sale: \n" );
 		for (var i = 0; i < res.length; i++) {
-		  	console.log("ID #: "+res[i].position +" * " + res[i].product_name + " $"+ res[i].price);
+		  	console.log("ID #: "+res[i].position +" * " + res[i].product_name + " $"+ res[i].price + ", stock: "+ res[i].stock_quantity);
 		  }  
 		  	 returnMenu();
 		  });
