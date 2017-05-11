@@ -14,12 +14,12 @@ var connection = mysql.createConnection(config);
 
 connection.connect(function (err){
 	if (err) throw err;
-	// console.log("connected as id ", connection.threadId);
+
 });
 
 
 
-
+// Begin function of menu options
 function begin(){
 	inquirer.prompt([
 	{
@@ -30,24 +30,27 @@ function begin(){
 
 	}
 	]).then(function(answer) {
-		if (answer.menu === "view all products") {
+		switch (answer.menu){
+			case "view all products":
 			showAll();
-		
-		} if (answer.menu === "view low inventory"){
+			break;
+			case "view low inventory":
 			lowInventory();
-			
-		} if (answer.menu === "add to inventory"){
+			break;
+			case "add to inventory":
 			showAllInventory();
-			
-		}if(answer.menu === "add new product"){
+			break;
+			case  "add new product":
 			addNew();
-
-		}if(answer.menu === "log out"){
+			break;
+			case "log out":
+			console.log("Ok, bye!");
 			process.exit();
 		}
 	});
 }
 
+//shows all the items for sale and their price
 function showAll(){
 	connection.query("SELECT * FROM products", function(err, res)
 	{      
@@ -56,11 +59,10 @@ function showAll(){
 		for (var i = 0; i < res.length; i++) {
 		  	console.log("ID #: "+res[i].position +" * " + res[i].product_name + " $"+ res[i].price);
 		  }  
-		  	console.log("\n");
 		  	 returnMenu();
 		  });
 	}
-
+// shows items with less than 3 in stock and their stock levels
 function lowInventory(){
 	connection.query("SELECT product_name, department_name, price, stock_quantity FROM products WHERE stock_quantity <= 3", function(err, res){ 
 	if(err) throw err;  
@@ -68,14 +70,12 @@ function lowInventory(){
 		for (var i = 0; i < res.length; i++) {
 		  	console.log(" * " + res[i].product_name + ", " + res[i].department_name + "- $"+ res[i].price + ", " + res[i].stock_quantity+ " left in stock");
 		  }  
-		
-		  console.log("\n");
 		  	 returnMenu();
 		  });
 }
 
 
-
+// shows all the inventory triggers the next function...
 function showAllInventory(){
 	connection.query("SELECT * FROM products", function(err, res)
 	{      
@@ -88,6 +88,7 @@ function showAllInventory(){
 		  });
 	}
 
+//asks if you would like to increase the inventory of any item, increases the inventory number in mysql for that ID #
 	function selectInventory(){
 	inquirer.prompt({
 		name:"select",
@@ -125,7 +126,6 @@ function showAllInventory(){
 							function(err, res){
 								if (err) throw err;
 							console.log("updated! New stock is: " + newstock);
-							console.log("\n");
 		  	 				returnMenu();
 							});
 					});
@@ -135,7 +135,7 @@ function showAllInventory(){
 
 
 	}
-
+// returns to main manager menu
 function returnMenu(){
 	inquirer.prompt([
 		{	
@@ -153,7 +153,7 @@ function returnMenu(){
 		});
 }
 
-
+//add new product function, series of prompts to get the information to add a new row to our table
 function addNew() {
 		inquirer.prompt([
 		{	
@@ -210,7 +210,7 @@ function addNew() {
 	});
 }
 
-
+// WHERE IT ALL BEGINS!
  begin();
 
 

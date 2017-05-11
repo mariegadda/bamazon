@@ -14,7 +14,7 @@ var connection = mysql.createConnection(config);
 
 connection.connect(function (err){
 	if (err) throw err;
-	// console.log("connected as id ", connection.threadId);
+
 });
 
 //begin function that asks if they would like to shop and triggers the showAll function
@@ -84,10 +84,13 @@ function showAll(){
 						console.log("insufficient quantity!");
 						returnMenu();
 						}else{
+							//calculating the new stock levels, total cost, and product sales for the supervisor level (not completed yet)
 						var newstock =	res[0].stock_quantity - input.amount;
 						var totalCost = res[0].price*input.amount;
-					
-						connection.query("UPDATE products SET ? WHERE ?", [{stock_quantity: newstock}, {position: id}],
+						newProductSales = parseInt(res[0].product_sales) + parseInt(totalCost);
+
+						//query for updating the products table
+						connection.query("UPDATE products SET ? WHERE ?", [{stock_quantity: newstock, product_sales: newProductSales}, {position: id}],
 							function(err, res){
 								if (err) throw err;
 							console.log("Your total cost is $" + totalCost + ", THANKS FOR SHOPPING BAMAZON!");
@@ -100,7 +103,7 @@ function showAll(){
 		});
 	}
 
-
+//function for returning to main menu
 	function returnMenu(){
 	inquirer.prompt([
 		{	
@@ -112,13 +115,14 @@ function showAll(){
 			if (answer.return === true) {
 				begin();
 			} else{
+				console.log("Ok, Bye!");
 				process.exit();
 			}
 		});
 }
 
 
-
+//WHERE IT ALL BEGINS!!!
 begin();
 
 

@@ -1,20 +1,20 @@
-1,clogs,shoes,80,20,
-2,platform sandals,shoes,30,10
-3,flip flops,shoes,15,40
-4,cowboy boots,shoes,120,12
-5,mittens,cats,60,1
-6,snooky,cats,60,1
-7,peanut,cats,60,1
-8,snoops,cats,60,1
-9,meow-face,cats,60,1
-10,snuggle munchkin,cats,60,1
-11,snuggie,clothes,35,3
-12,fake fur coat,clothes,60,5
-13,velour jump-suit,clothes,50,3
-14,velvet cape,clothes,40,2
-15,bell bottom overalls,clothes,70,1
-16,ceramic lamp,furniture,40,3
-17,chaise lounge,furniture,1000,5
-18,velvet armchair,furniture,500,2
-19,glass coffee table,furniture,300,7
-20,dinette set,furniture,1200,1
+1,clogs,shoes,80.00,20,0
+2,platform sandals,shoes,30.00,10,0
+3,flip flops,shoes,15.99,40,0
+4,cowboy boots,shoes,120.00,12,0
+5,mittens,cats,60.50,1,0
+6,snooky,cats,60.50,1,0
+7,peanut,cats,60.50,1,0
+8,snoops,cats,60.50,1,0
+9,meow-face,cats,60.50,1,0
+10,snuggle munchkin,cats,99.99,1,0
+11,snuggie,clothes,35.00,3,0
+12,fake fur coat,clothes,60.00,5,0
+13,velour jump-suit,clothes,50.33,3,0
+14,velvet cape,clothes,40.99,2,0
+15,bell bottom overalls,clothes,70.00,1,0
+16,ceramic lamp,furniture,40.00,3,0
+17,chaise lounge,furniture,1000.00,5,0
+18,velvet armchair,furniture,500.00,2,0
+19,glass coffee table,furniture,300.00,7,0
+20,dinette set,furniture,1200.00,1,0
