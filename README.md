@@ -1,6 +1,6 @@
 
 
-### "Bamazon" Node and Mysql Application
+# "Bamazon" Node and Mysql Application
 
 A Node application simulating an online store experience for customers or a manager. 
 
